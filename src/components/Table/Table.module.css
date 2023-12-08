@@ -28,3 +28,43 @@
     height: 100%;
     overflow: auto;
 }
+
+.item {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    font-size: 1.4rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 1rem;
+    cursor: pointer;
+}
+
+.item > p {
+    text-align: center;
+}
+
+.item:hover {
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+.item:active {
+    background-color: #006CDC;
+}
+
+.item:active > p {
+    color: #FFFFFF;
+}
+
+.item_selected {
+    background-color: #006CDC;
+}
+
+.item_selected > p {
+    color: #FFFFFF;
+}
+
+.not_data_txt {
+    font-size: 1.4rem;
+    color: #006CDC;
+    margin: auto;
+}

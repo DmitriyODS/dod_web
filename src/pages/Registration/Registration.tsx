@@ -41,10 +41,10 @@ function Registration(props: TRegistrationProps) {
             <h1 className={styles.header_text_1}>
               МАСТЕР-КЛАСС
             </h1>
-            <h2 className={styles.header_text_2}>
+            <h3 className={styles.header_text_2}>
               Создай веб-приложение<br />
               «Записная книжка»
-            </h2>
+            </h3>
           </section>
           <Form className={styles.form_box}>
             <h3 className={'mb-4 text-center'}>Регистрация</h3>

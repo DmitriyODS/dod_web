@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ControlPanel.module.css';
 import Logo from '../../components/icons/logo';
 import Header from '../../components/Header/Header';
@@ -6,10 +6,178 @@ import Toolbox from '../../components/Toolbox/Toolbox';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import Table from '../../components/Table/Table';
+import { CustomerModel } from '../../models/Customer';
 
 type TControlPanelProps = {}
 
+const data = [{
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 2,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 3,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 4,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 5,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}, {
+  id: 1,
+  fio: 'Осиповский Дмитрий Сергеевич',
+  city: 'Калуга',
+  type_mk: 'Разработка игры на Python',
+  class_school: '11',
+  school: 'МБОУ СоШ 17',
+  email: 'osipo@ya.ru',
+}];
+
 function ControlPanel(props: TControlPanelProps) {
+  const [customers, setCustomers] = useState<CustomerModel[]>(data);
+  const [selectCustomerID, setCustomerID] = useState(0);
+
+  const is_selected = selectCustomerID !== 0;
+
+  const onSelectCustomer = (id: number) => {
+    setCustomerID(id);
+  };
+
+  const onUpdateData = () => {
+    setCustomerID(0);
+  };
+
   return (
     <section className={styles.root}>
       <section>
@@ -46,12 +214,14 @@ function ControlPanel(props: TControlPanelProps) {
             <Button
               className={styles.btn_action}
               variant={'outline-primary'}
+              disabled={!is_selected}
             >
               Распечатать
             </Button>
             <Button
               className={styles.btn_action}
               variant={'outline-danger'}
+              disabled={!is_selected}
             >
               Отправить и завершить
             </Button>
@@ -60,13 +230,18 @@ function ControlPanel(props: TControlPanelProps) {
             <Button
               className={styles.btn_action}
               variant={'outline-primary'}
+              onClick={onUpdateData}
             >
               Обновить
             </Button>
           </section>
         </Toolbox>
       </section>
-      <Table />
+      <Table
+        data={customers}
+        selectedID={selectCustomerID}
+        onSelect={onSelectCustomer}
+      />
       <section className={'w-100'}>
         <p className={styles.count_clients}>Всего посетителей: 426</p>
       </section>
