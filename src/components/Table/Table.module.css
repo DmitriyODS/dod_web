@@ -1,0 +1,30 @@
+.root {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    background: #ffffff;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 8rem;
+}
+
+.headers {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    border-bottom: 2px solid #006CDC;
+    padding-bottom: 1rem;
+}
+
+.header_item {
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
