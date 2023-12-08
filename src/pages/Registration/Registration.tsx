@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './Registration.module.css';
 import Header from '../../components/Header/Header';
 import Logo from '../../components/icons/logo';
+import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
 
 type TRegistrationProps = {}
 
@@ -31,18 +33,41 @@ function Registration(props: TRegistrationProps) {
         </div>
       </Header>
       <main className={styles.content}>
-        <section className={styles.content_header}>
-          <h3 className={styles.header_text_1}>
-            Добро пожаловать на
-          </h3>
-          <h1 className={styles.header_text_1}>
-            МАСТЕР-КЛАСС
-          </h1>
-          <h2 className={styles.header_text_2}>
-            Создай веб-приложение<br />
-            «Записная книжка»
-          </h2>
-        </section>
+        <div className={styles.main_content}>
+          <section className={styles.content_header}>
+            <h3 className={styles.header_text_1}>
+              Добро пожаловать на
+            </h3>
+            <h1 className={styles.header_text_1}>
+              МАСТЕР-КЛАСС
+            </h1>
+            <h2 className={styles.header_text_2}>
+              Создай веб-приложение<br />
+              «Записная книжка»
+            </h2>
+          </section>
+          <Form className={styles.form_box}>
+            <h3 className={'mb-4 text-center'}>Регистрация</h3>
+            <Form.Group className={'mb-3 w-100'}>
+              <Form.Control className={styles.form_input} size={'lg'} type={'text'} placeholder={'ФИО'} />
+            </Form.Group>
+            <Form.Group className={'mb-3 w-100'}>
+              <Form.Control className={styles.form_input} size={'lg'} type={'email'} placeholder={'Email'} />
+            </Form.Group>
+            <Form.Group className={'mb-3 w-100'}>
+              <Form.Control className={styles.form_input} size={'lg'} type={'text'} placeholder={'Школа'} />
+            </Form.Group>
+            <Form.Group className={'mb-4 w-100'}>
+              <Form.Control className={styles.form_input} size={'lg'} type={'text'} placeholder={'Город'} />
+            </Form.Group>
+            <Button
+              className={styles.btn_submit}
+              variant={'outline-secondary'}
+              type={'submit'}>
+              Отправить
+            </Button>
+          </Form>
+        </div>
       </main>
     </section>
   );
