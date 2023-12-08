@@ -167,6 +167,7 @@ const data = [{
 function ControlPanel(props: TControlPanelProps) {
   const [customers, setCustomers] = useState<CustomerModel[]>(data);
   const [selectCustomerID, setCustomerID] = useState(0);
+  const [filterFio, setFilterFio] = useState('');
 
   const is_selected = selectCustomerID !== 0;
 
@@ -176,6 +177,11 @@ function ControlPanel(props: TControlPanelProps) {
 
   const onUpdateData = () => {
     setCustomerID(0);
+    setFilterFio('');
+  };
+
+  const onChangeFilter = (event: any) => {
+    setFilterFio(event.target.value);
   };
 
   return (
@@ -209,6 +215,8 @@ function ControlPanel(props: TControlPanelProps) {
             type={'text'}
             placeholder={'Фильтр по ФИО'}
             size={'lg'}
+            onChange={onChangeFilter}
+            value={filterFio}
           />
           <section>
             <Button
