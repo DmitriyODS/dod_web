@@ -14,15 +14,15 @@ export const baseRouter = createBrowserRouter([
     errorElement: <ErrorBoundary />,
     children: [
       {
-        path: 'registration',
+        path: 'registration/:type_mk',
         element: <Registration />,
       },
       {
-        path: 'control_panel',
+        path: 'control_panel/:access_key',
         element: <ControlPanel />,
       },
       {
-        path: 'statistics',
+        path: 'statistics/:access_key',
         element: <Statistics />,
       },
     ],

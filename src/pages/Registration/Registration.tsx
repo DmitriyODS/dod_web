@@ -1,13 +1,133 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Registration.module.css';
 import Header from '../../components/Header/Header';
 import Logo from '../../components/icons/logo';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { CustomerDto } from '../../models/Customer';
+import { toast } from 'react-toastify';
 
 type TRegistrationProps = {}
 
 function Registration(props: TRegistrationProps) {
+  const params = useParams();
+  const [fio, setFio] = useState('');
+  const [city, setCity] = useState('');
+  const [school, setSchool] = useState('');
+  const [class_school, setClassSchool] = useState('');
+  const [email, setEmail] = useState('');
+
+  const [isLoading, setLoading] = useState(false);
+  const [isRegistered, setRegistered] = useState(false);
+
+  const onSubmitData = (e: any) => {
+    e.preventDefault();
+    if (fio === '' || city === '' || school === '' || class_school === '' || email === '') {
+      toast.error('Не все поля были заполнены', { position: toast.POSITION.BOTTOM_CENTER });
+      return;
+    }
+
+    const data: CustomerDto = {
+      id: 0,
+      fio: fio,
+      city: city,
+      school: school,
+      class_school: class_school,
+      email: email,
+      type_mk: Number(params.type_mk),
+    };
+
+    setLoading(true);
+
+    const resReq = new Promise((resolve, reject) => {
+      console.log(data);
+      setTimeout(() => {
+        resolve('ok');
+      }, 2000);
+    });
+
+    resReq.then((value) => {
+      setRegistered(true);
+      setLoading(false);
+    });
+  };
+
+  const renderForm = () => {
+    if (isRegistered) {
+      return <h2 className={styles.finished_reg}>Спасибо за регистрацию!</h2>;
+    }
+
+    return (
+      <Form className={styles.form_box} onSubmit={onSubmitData}>
+        <h3 className={'mb-4 text-center'}>Регистрация</h3>
+        <Form.Group className={'mb-3 w-100'}>
+          <Form.Control
+            className={styles.form_input}
+            size={'lg'}
+            type={'text'}
+            placeholder={'ФИО'}
+            value={fio}
+            onChange={(e: any) => setFio(e.target.value)}
+            disabled={isLoading}
+          />
+        </Form.Group>
+        <Form.Group className={'mb-3 w-100'}>
+          <Form.Control
+            className={styles.form_input}
+            size={'lg'}
+            type={'email'}
+            placeholder={'Email'}
+            value={email}
+            onChange={(e: any) => setEmail(e.target.value)}
+            disabled={isLoading}
+          />
+        </Form.Group>
+        <Form.Group className={'mb-3 w-100'}>
+          <Form.Control
+            className={styles.form_input}
+            size={'lg'}
+            type={'text'}
+            placeholder={'Школа'}
+            value={school}
+            onChange={(e: any) => setSchool(e.target.value)}
+            disabled={isLoading}
+          />
+        </Form.Group>
+        <Form.Group className={'mb-3 w-100'}>
+          <Form.Control
+            className={styles.form_input}
+            size={'lg'}
+            type={'text'}
+            placeholder={'Класс'}
+            value={class_school}
+            onChange={(e: any) => setClassSchool(e.target.value)}
+            disabled={isLoading}
+          />
+        </Form.Group>
+        <Form.Group className={'mb-4 w-100'}>
+          <Form.Control
+            className={styles.form_input}
+            size={'lg'}
+            type={'text'}
+            placeholder={'Город'}
+            value={city}
+            onChange={(e: any) => setCity(e.target.value)}
+            disabled={isLoading}
+          />
+        </Form.Group>
+        <Button
+          className={styles.btn_submit}
+          variant={(params.type_mk === '1') ? 'outline-secondary' : 'outline-success'}
+          type={'submit'}
+          disabled={isLoading}
+        >
+          Отправить
+        </Button>
+      </Form>
+    );
+  };
+
   return (
     <section className={styles.root}>
       <Header>
@@ -41,32 +161,18 @@ function Registration(props: TRegistrationProps) {
             <h1 className={styles.header_text_1}>
               МАСТЕР-КЛАСС
             </h1>
-            <h3 className={styles.header_text_2}>
-              Создай веб-приложение<br />
-              «Записная книжка»
-            </h3>
+            {(Number(params.type_mk) === 1) ? (
+              <h3 className={styles.header_text_2}>
+                Создай веб-приложение<br />
+                «Записная книжка»
+              </h3>
+            ) : (
+              <h3 className={styles.header_text_2_2}>
+                Разработка игры на Python
+              </h3>
+            )}
           </section>
-          <Form className={styles.form_box}>
-            <h3 className={'mb-4 text-center'}>Регистрация</h3>
-            <Form.Group className={'mb-3 w-100'}>
-              <Form.Control className={styles.form_input} size={'lg'} type={'text'} placeholder={'ФИО'} />
-            </Form.Group>
-            <Form.Group className={'mb-3 w-100'}>
-              <Form.Control className={styles.form_input} size={'lg'} type={'email'} placeholder={'Email'} />
-            </Form.Group>
-            <Form.Group className={'mb-3 w-100'}>
-              <Form.Control className={styles.form_input} size={'lg'} type={'text'} placeholder={'Школа'} />
-            </Form.Group>
-            <Form.Group className={'mb-4 w-100'}>
-              <Form.Control className={styles.form_input} size={'lg'} type={'text'} placeholder={'Город'} />
-            </Form.Group>
-            <Button
-              className={styles.btn_submit}
-              variant={'outline-secondary'}
-              type={'submit'}>
-              Отправить
-            </Button>
-          </Form>
+          {renderForm()}
         </div>
       </main>
     </section>

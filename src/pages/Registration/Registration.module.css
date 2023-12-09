@@ -69,6 +69,14 @@
     text-transform: uppercase;
 }
 
+.header_text_2_2 {
+    color: #4DAA56;
+    text-align: center;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 .content_header {
     margin-top: 2rem;
 }
@@ -106,4 +114,9 @@
 
 .form_input::placeholder {
     color: rgba(26, 26, 25, 0.42);
+}
+
+.finished_reg {
+    text-align: center;
+    margin-top: 4rem;
 }
