@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Statistics.module.css';
 import Header from '../../components/Header/Header';
 import Logo from '../../components/icons/logo';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AK } from '../../global/consts';
 
 type TStatisticsProps = {}
 
 function Statistics(props: TStatisticsProps) {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (params.access_key !== AK) {
+      navigate('/registration/1');
+    } else {
+      setLoading(false);
+    }
+  }, [params]);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <section className={styles.root}>
       <section>

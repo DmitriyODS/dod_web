@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ControlPanel.module.css';
 import Logo from '../../components/icons/logo';
 import Header from '../../components/Header/Header';
@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import Table from '../../components/Table/Table';
 import { CustomerModel } from '../../models/Customer';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AK } from '../../global/consts';
 
 type TControlPanelProps = {}
 
@@ -168,6 +170,23 @@ function ControlPanel(props: TControlPanelProps) {
   const [customers, setCustomers] = useState<CustomerModel[]>(data);
   const [selectCustomerID, setCustomerID] = useState(0);
   const [filterFio, setFilterFio] = useState('');
+
+  const [isLoading, setLoading] = useState(true);
+
+  const params = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (params.access_key !== AK) {
+      navigate('/registration/1');
+    } else {
+      setLoading(false);
+    }
+  }, [params]);
+
+  if (isLoading) {
+    return null;
+  }
 
   const is_selected = selectCustomerID !== 0;
 

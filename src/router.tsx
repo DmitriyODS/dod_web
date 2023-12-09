@@ -18,11 +18,11 @@ export const baseRouter = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: 'control_panel/:access_key',
+        path: 'control_panel/:access_key?',
         element: <ControlPanel />,
       },
       {
-        path: 'statistics/:access_key',
+        path: 'statistics/:access_key?',
         element: <Statistics />,
       },
     ],
