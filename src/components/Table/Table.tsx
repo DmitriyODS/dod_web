@@ -6,6 +6,7 @@ type TTableProps = {
   data: CustomerModel[];
   selectedID: number;
   onSelect: (id: number) => void;
+  isLoading: boolean;
 }
 
 type TTableItemProps = {
@@ -34,15 +35,25 @@ export function TableItem(props: TTableItemProps) {
 }
 
 function Table(props: TTableProps) {
-  let items = props.data.map((it, index) => (
-    <TableItem
-      id={index + 1}
-      fio={it.fio}
-      type_mk_str={it.type_mk}
-      onSelect={props.onSelect}
-      is_selected={props.selectedID === it.id}
-    />
-  ));
+  const renderBody = () => {
+    if (props.isLoading) {
+      return <p className={styles.not_data_txt}>загрузка ...</p>;
+    }
+
+    if (props.data.length === 0) {
+      return <p className={styles.not_data_txt}>нет новых участников</p>;
+    }
+
+    return props.data.map((it, index) => (
+      <TableItem
+        id={index + 1}
+        fio={it.fio}
+        type_mk_str={it.type_mk}
+        onSelect={props.onSelect}
+        is_selected={props.selectedID === it.id}
+      />
+    ));
+  };
 
   return (
     <div className={styles.root}>
@@ -52,7 +63,7 @@ function Table(props: TTableProps) {
         <h3 className={styles.header_item}>Мастер-класс</h3>
       </section>
       <div className={styles.content}>
-        {(items.length === 0) ? <p className={styles.not_data_txt}>нет новых участников</p> : items}
+        {renderBody()}
       </div>
     </div>
   );

@@ -52,118 +52,6 @@ const data = [{
   class_school: '11',
   school: 'МБОУ СоШ 17',
   email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
-}, {
-  id: 1,
-  fio: 'Осиповский Дмитрий Сергеевич',
-  city: 'Калуга',
-  type_mk: 'Разработка игры на Python',
-  class_school: '11',
-  school: 'МБОУ СоШ 17',
-  email: 'osipo@ya.ru',
 }];
 
 function ControlPanel(props: TControlPanelProps) {
@@ -172,6 +60,9 @@ function ControlPanel(props: TControlPanelProps) {
   const [filterFio, setFilterFio] = useState('');
 
   const [isLoading, setLoading] = useState(true);
+  const [isTableLoading, setTableLoading] = useState(true);
+
+  const [allCount, setAllCount] = useState(0);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -236,6 +127,7 @@ function ControlPanel(props: TControlPanelProps) {
             size={'lg'}
             onChange={onChangeFilter}
             value={filterFio}
+            disabled={isTableLoading}
           />
           <section>
             <Button
@@ -258,6 +150,7 @@ function ControlPanel(props: TControlPanelProps) {
               className={styles.btn_action}
               variant={'outline-primary'}
               onClick={onUpdateData}
+              disabled={isTableLoading}
             >
               Обновить
             </Button>
@@ -268,9 +161,10 @@ function ControlPanel(props: TControlPanelProps) {
         data={customers}
         selectedID={selectCustomerID}
         onSelect={onSelectCustomer}
+        isLoading={isTableLoading}
       />
       <section className={'w-100'}>
-        <p className={styles.count_clients}>Всего посетителей: 426</p>
+        <p className={styles.count_clients}>Всего посетителей: {allCount}</p>
       </section>
     </section>
   );
